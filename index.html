@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday Beautiful</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(212,175,55,.25), transparent 30%),
+        linear-gradient(135deg, #000, #121212, #000);
+    overflow-x: hidden;
+    color: white;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.password-box,
+.box {
+    background: rgba(10,10,10,.95);
+    border: 2px solid #d4af37;
+    border-radius: 30px;
+    padding: 28px;
+    max-width: 430px;
+    width: 100%;
+    text-align: center;
+    box-shadow:
+        0 0 25px rgba(212,175,55,.25),
+        0 0 70px rgba(212,175,55,.15);
+}
+
+.box {
+    display: none;
+}
+
+h1 {
+    color: #d4af37;
+    margin-bottom: 12px;
+    text-shadow: 0 0 15px rgba(212,175,55,.4);
+    font-size: 28px;
+}
+
+.password-photo {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid #d4af37;
+    margin: 15px 0;
+}
+
+p {
+    color: #ddd;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+input {
+    width: 85%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d4af37;
+    background: black;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 12px #d4af37;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f7d774, #d4af37);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+video {
+    width: 100%;
+    display: block;
+    border-radius: 18px;
+    margin-top: 15px;
+    border: 2px solid #d4af37;
+    background: #000;
+}
+
+audio {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.status {
+    margin-top: 15px;
+    color: #f7d774;
+    font-size: 14px;
+}
+
+.brand {
+    margin-top: 22px;
+    font-size: 13px;
+    color: #999;
+}
+
+.brand span {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.float {
+    position: fixed;
+    bottom: -40px;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatUp linear infinite;
+    opacity: .8;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: .8;
+    }
+
+    100% {
+        transform: translateY(-120vh) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .password-box,
+    .box {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<script>
+function createFloat() {
+
+    const item = document.createElement("div");
+
+    const icons = ["✨", "⭐", "🖤", "💛"];
+
+    item.className = "float";
+
+    item.innerHTML =
+        icons[Math.floor(Math.random() * icons.length)];
+
+    item.style.left = Math.random() * 100 + "vw";
+
+    item.style.animationDuration =
+        (6 + Math.random() * 6) + "s";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => {
+        item.remove();
+    }, 12000);
+}
+
+setInterval(createFloat, 800);
+</script>
+
+<div class="container">
+
+    <!-- PASSWORD SCREEN -->
+
+    <div class="password-box" id="passwordBox">
+
+        <h1>Happy Birthday Beautiful 🖤✨</h1>
+
+        <img
+            src="photo.jpg"
+            class="password-photo"
+            alt="Birthday Photo"
+        >
+
+        <p>
+            A special birthday surprise is waiting for you.
+            Unlock it to see something special! ✨💛
+        </p>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="Enter Password"
+            autocomplete="off"
+        >
+
+        <br>
+
+        <button onclick="unlock()">
+            Unlock My Surprise 🖤
+        </button>
+
+        <p
+            id="error"
+            style="color:#ff4d4d; margin-top:15px;"
+        ></p>
+
+    </div>
+
+
+    <!-- BIRTHDAY SURPRISE SCREEN -->
+
+    <div class="box" id="contentBox">
+
+        <h1>Happy Birthday Beautiful 🎂💛</h1>
+
+        <p id="introMessage">
+            Sit back, relax, and enjoy your special surprise! 🖤✨
+        </p>
+
+        <!-- VIDEO PLAYS FIRST -->
+
+        <video
+            id="bdayVideo"
+            controls
+            playsinline
+            preload="auto"
+        >
+            <source src="video.mp4" type="video/mp4">
+
+            Your browser does not support this video.
+        </video>
+
+        <p id="videoStatus" class="status">
+            🎬 Your birthday video is playing!
+        </p>
+
+
+        <!-- VOICE RECORDING PLAYS AFTER VIDEO -->
+
+        <audio
+            id="birthdayAudio"
+            controls
+            preload="auto"
+        >
+            <source src="audio.mp3" type="audio/mpeg">
+
+            Your browser does not support this audio.
+        </audio>
+
+        <p id="audioStatus" class="status">
+            💛 Your special voice message will play after the video.
+        </p>
+
+        <button onclick="replaySurprise()">
+            Replay Surprise ✨
+        </button>
+
+        <div class="brand">
+            Created by
+            <span>Limitless Graphics by Thea</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+// PASSWORD
+const correctPassword = "Bestie";
+
+
+// GET VIDEO AND AUDIO ELEMENTS
+const video = document.getElementById("bdayVideo");
+const audio = document.getElementById("birthdayAudio");
+
+const videoStatus = document.getElementById("videoStatus");
+const audioStatus = document.getElementById("audioStatus");
+
+let surpriseStarted = false;
+
+
+// UNLOCK THE SURPRISE
+function unlock() {
+
+    const input = document
+        .getElementById("passwordInput")
+        .value
+        .trim();
+
+    const error = document.getElementById("error");
+
+    if (input === correctPassword) {
+
+        document.getElementById("passwordBox").style.display = "none";
+
+        document.getElementById("contentBox").style.display = "block";
+
+        error.innerText = "";
+
+        startSurprise();
+
+    } else {
+
+        error.innerText = "Incorrect password. Try again!";
+
+    }
+}
+
+
+// START VIDEO FIRST
+function startSurprise() {
+
+    surpriseStarted = true;
+
+    // Stop and reset the voice recording.
+    audio.pause();
+    audio.currentTime = 0;
+
+    // Reset the video.
+    video.pause();
+    video.currentTime = 0;
+
+    videoStatus.innerText = "🎬 Your birthday video is playing!";
+
+    audioStatus.innerText =
+        "💛 Your special voice message will play after the video.";
+
+    // Start the video.
+    video.play()
+        .then(() => {
+
+            console.log("Birthday video started.");
+
+        })
+        .catch((error) => {
+
+            console.log("Video playback issue:", error);
+
+            videoStatus.innerText =
+                "Tap the play button on the video to begin your surprise.";
+
+        });
+
+}
+
+
+// WHEN THE VIDEO FINISHES, PLAY THE VOICE RECORDING
+video.addEventListener("ended", function() {
+
+    if (!surpriseStarted) {
+        return;
+    }
+
+    videoStatus.innerText = "✨ Hope you enjoyed the video!";
+
+    audioStatus.innerText =
+        "💛 Now playing your special voice message...";
+
+    audio.currentTime = 0;
+
+    audio.volume = 1;
+
+    audio.play()
+        .then(() => {
+
+            console.log("Voice recording started.");
+
+        })
+        .catch((error) => {
+
+            console.log("Audio playback issue:", error);
+
+            audioStatus.innerText =
+                "🎤 Tap the play button below to hear your special voice message.";
+
+        });
+
+});
+
+
+// UPDATE STATUS WHEN THE VOICE RECORDING ENDS
+audio.addEventListener("ended", function() {
+
+    audioStatus.innerText =
+        "💛 Hope this made your birthday extra special!";
+
+});
+
+
+// REPLAY THE ENTIRE SURPRISE
+function replaySurprise() {
+
+    // Stop the voice recording.
+    audio.pause();
+    audio.currentTime = 0;
+
+    // Reset the video.
+    video.pause();
+    video.currentTime = 0;
+
+    videoStatus.innerText = "🎬 Replaying your birthday video!";
+
+    audioStatus.innerText =
+        "💛 Your special voice message will play after the video.";
+
+    surpriseStarted = true;
+
+    // Play the video first again.
+    video.play()
+        .then(() => {
+
+            console.log("Replaying birthday video.");
+
+        })
+        .catch((error) => {
+
+            console.log("Video playback issue:", error);
+
+            videoStatus.innerText =
+                "Tap the play button on the video to replay your surprise.";
+
+        });
+
+}
+
+
+// ALLOW THE ENTER KEY TO UNLOCK
+document.getElementById("passwordInput")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            unlock();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
